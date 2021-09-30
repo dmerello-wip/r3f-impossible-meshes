@@ -1,0 +1,9 @@
+.canvas-wrapper {
+    position: absolute;
+    width: 300px;
+    border: 1px solid red;
+    height: 200px;
+}
+.dom-wrapper {
+     border: 1px solid green;
+ }
