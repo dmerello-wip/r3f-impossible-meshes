@@ -1,9 +1,6 @@
 {
-  "name": "react-three-next",
+  "name": "wip-italia",
   "version": "2.0.0",
-  "authors": [
-    "Renaud ROHLINGER <https://twitter.com/onirenaud>"
-  ],
   "license": "MIT",
   "private": true,
   "engines": {
@@ -22,7 +19,9 @@
   "dependencies": {
     "@react-three/drei": "^7.6.1",
     "@react-three/fiber": "^7.0.6",
+    "all": "^0.0.0",
     "glsl-random": "^0.0.5",
+    "jshint": "^2.13.1",
     "next": "^11.1.2",
     "react": "^18.0.0-alpha-dbe3363cc",
     "react-dom": "^17.0.2",
@@ -47,7 +46,6 @@
     "postcss": "^8.3.6",
     "prettier": "^2.3.2",
     "raw-loader": "^4.0.2",
-    "tailwindcss": "^2.2.9",
     "url-loader": "^4.1.1",
     "webpack": "^5.52.0"
   }

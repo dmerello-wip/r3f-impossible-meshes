@@ -1,51 +1,7 @@
 import { useRouter } from 'next/router'
-import useStore from '@/helpers/store'
+import useStore from '@/store/store'
 import { useEffect, Children } from 'react'
-import Header from '@/components/Header'
-import dynamic from 'next/dynamic'
-import Dom from '@/components/layout/dom'
-
-import '@/styles/index.css'
-
-let LCanvas = null
-if (process.env.NODE_ENV === 'production') {
-  LCanvas = dynamic(() => import('@/components/layout/canvas'), {
-    ssr: false,
-  })
-} else {
-  LCanvas = require('@/components/layout/canvas').default
-}
-
-function Layout({ dom }) {
-  return <>{dom && <Dom>{dom}</Dom>}</>
-}
-
-// automatically wraps components with r3f attribute in three canvas:
-const ForwardPropsToR3fComponent = ({ comp, pageProps }) => {
-  let r3fArr = []
-  let compArr = []
-
-  try {
-    Children.forEach(comp(pageProps).props.children, (child) => {
-      if (child?.props && child.props.r3f) {
-        r3fArr.push(child)
-      } else {
-        compArr.push(child)
-      }
-    })
-
-    return (
-      <>
-        {compArr && <Layout dom={compArr} />}
-        {r3fArr && <LCanvas>{r3fArr}</LCanvas>}
-      </>
-    )
-  } catch (error) {
-    // fallback security for SSG
-    // @ts-ignore
-    return <comp {...pageProps} />
-  }
-}
+import Header from '@/components/Head'
 
 function App({ Component, pageProps = { title: 'index' } }) {
   const router = useRouter()
@@ -55,7 +11,7 @@ function App({ Component, pageProps = { title: 'index' } }) {
   return (
     <>
       <Header title={pageProps.title} />
-      <ForwardPropsToR3fComponent comp={Component} pageProps={pageProps} />
+      <Component {...pageProps} />
     </>
   )
 }

@@ -1,28 +1,12 @@
 import dynamic from 'next/dynamic'
-const Box = dynamic(() => import('@/components/canvas/Box'))
-const Value = dynamic(() => import('@/components/dom/Value'))
+const Hero = dynamic(() => import('@/components/Hero'))
 
-const DOM = () => {
-  return (
-      <>
-          <Value/>
-      </>
-  )
-}
 
-const R3F = () => {
-  return (
-    <>
-      <Box color="green" />
-    </>
-  )
-}
 
 const Page = () => {
   return (
     <>
-      <DOM />
-      <R3F r3f />
+      <Hero title="prima slide c"></Hero>
     </>
   )
 }
@@ -32,7 +16,7 @@ export default Page
 export async function getStaticProps() {
   return {
     props: {
-      title: 'Index',
+      title: 'adesso siamo in home',
     },
   }
 }
