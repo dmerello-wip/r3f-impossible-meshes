@@ -1,7 +1,8 @@
 import { useRouter } from 'next/router'
 import useStore from '@/store/store'
 import { useEffect, Children } from 'react'
-import Header from '@/components/Head'
+import Head from '@/components/Head'
+import "../scss/main.scss";
 
 function App({ Component, pageProps = { title: 'index' } }) {
   const router = useRouter()
@@ -10,7 +11,7 @@ function App({ Component, pageProps = { title: 'index' } }) {
   }, [router])
   return (
     <>
-      <Header title={pageProps.title} />
+      <Head title={pageProps.title} />
       <Component {...pageProps} />
     </>
   )

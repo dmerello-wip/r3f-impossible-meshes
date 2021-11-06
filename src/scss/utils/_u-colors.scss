@@ -1,0 +1,26 @@
+@use "sass:map";
+@use "sass:meta";
+
+$theme-custom-colors: () !default;
+$theme-default-colors: (
+    'primary':#000000 ,
+    'secondary': #ffffff,
+    'tertiary':#727C8B,
+    'light':#ffffff,
+    'success': #00a905,
+    'warning': #fa6700,
+    'error': #B30E12,
+    'info': #1766dd
+);
+
+@function setUpColors(){
+    @if meta.variable-exists('theme-custom-colors'){
+        @return map.merge($theme-default-colors,$theme-custom-colors);
+    }
+}
+
+$theme-colors : setUpColors();
+
+@function getColor($key:'primary') {
+    @return map.get($theme-colors, $key)
+}

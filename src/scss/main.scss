@@ -1,0 +1,27 @@
+@import "./utils";
+@import "./basics";
+// @import "./vendors";
+
+/* COMMONS COMPONENTS/LAYOUTS TO BE COMPILED INTO main.css and not as chunks */
+@import "./components";
+@import "./layouts";
+
+html,
+body{
+    width:100%;
+    height: 100%;
+    //scroll-snap-type: y proximity;
+}
+body{
+    margin: 0;
+    padding: 0;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+
+    &.body-blocked{
+        overflow: hidden;
+        touch-action: none;
+        -ms-touch-action: none;
+        position: relative;
+    }
+}

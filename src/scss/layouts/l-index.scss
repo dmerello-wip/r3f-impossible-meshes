@@ -1,0 +1,7 @@
+.l-index{
+    background: gray;
+    //overwrite of test component
+    .c-test-component{
+        background: purple;
+    }
+}

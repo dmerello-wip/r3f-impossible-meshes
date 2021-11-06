@@ -1,0 +1,162 @@
+/* PLACEHOLDERS */
+%text-input-transparent{
+    background: transparent;
+    border: none;
+    appearance: none;
+    outline: none;
+    min-height: rem(50);
+    padding: rem(5);
+}
+%text-input-stroked{
+    height: rem(40);
+    width: 100%;
+    padding:rem(5) rem(10);
+    outline: none;
+    border: 1px solid getColor('gray');
+    font-size: rem(14);
+}
+input[type="text"],
+input[type="email"],
+input[type="password"],
+input[type="number"],
+input[type="date"],
+input[type="tel"],
+select{
+    @extend %text-input-stroked;
+}
+
+select,
+textarea{
+    appearance: none;
+    width: 100%;
+}
+textarea{
+    width: 100%;
+    min-height: rem(200);
+    resize: none;
+}
+
+.form-field,
+.inline-form-field{
+    margin-bottom: rem(14);
+    label{
+        font-size: rem(14);
+    }
+    &.acceptance{
+        display: flex;
+        .acceptance__text{
+            font-size: rem(12);
+        }
+        .custom-checkbox{
+            margin-right: rem(15);
+        }
+    }
+    &.hidden{
+        display:none;
+    }
+    &.error{
+        color: red;
+        .error-msg{
+            font-size: rem(12);
+            margin: rem(10) auto;
+        }
+    }
+}
+
+/* CUSTOM INPUTS */
+
+/* CUSTOM CHECKBOX
+
+<label class="custom-checkbox">
+    <input type="checkbox" name="input_name">
+    <span class="checkbox">
+        <span class="checkbox__check"></span>
+    </span>
+</label>
+*/
+.custom-checkbox{
+    --custom-check-bg: #{getColor('light')};
+    --custom-check-opacity: 0;
+    display: inline-block;
+    width: rem(25);
+    height: rem(25);
+    position: relative;
+    color: getColor('gray');
+    input{
+        opacity: 0;
+        position: absolute;
+        top: 0;
+        left: 0;
+        &:checked{
+            & ~ .checkbox{
+                --custom-check-opacity: 1;
+            }
+        }
+    }
+    .checkbox{
+        width: 100%;
+        height: 100%;
+        color: inherit;
+        border: 1px solid currentColor;
+        background: var(--custom-check-bg);
+        position: relative;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        &__check{
+            opacity: var(--custom-check-opacity);
+            width: 50%;
+            height: 90%;
+            border: 4px solid currentColor;
+            border-left: none;
+            border-top: none;
+            transform: translate( 0%, -10% ) rotate( 45deg ) scale(.8);
+        }
+    }
+}
+
+/*CUSTOM SELECT*/
+/*TODO Check || improve */
+.custom-select-input{
+    position: relative;
+    .arrow-down{
+        position: absolute;
+        width:100%;
+        height:100%;
+        padding: 0 rem(10);
+        display: flex;
+        justify-content: flex-end;
+        align-items:center;
+        color: getColor('primary');
+        pointer-events: none;
+        &:after{
+            // content: "\25BE";
+            // font-size: rem(12);
+            border-style: solid;
+            border-width: 1px 1px 0 0;
+            content: '';
+            display: inline-block;
+            height: 7px;
+            margin: 0 7px;
+            position: relative;
+            transform: rotate(135deg);
+            vertical-align: middle;
+            width: 7px;
+        }
+    }
+    select{
+        width: 100%;
+        color: getColor('primary');
+    }
+    &--white{
+        @extend .custom-select-input;
+        .arrow-down{
+            color:white;
+        }
+        select{
+            background: transparent;
+            color: white;
+            border-color: white;
+        }
+    }
+}

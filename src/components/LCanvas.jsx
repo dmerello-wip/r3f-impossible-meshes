@@ -1,20 +1,25 @@
+import { useRef } from 'react'
 import { Canvas } from '@react-three/fiber'
-import { OrbitControls, Preload } from '@react-three/drei'
+import { PerspectiveCamera, OrbitControls, Preload } from '@react-three/drei'
 import useStore from '@/store/store'
 
-const LCanvas = ({ children , orbitControlActive}) => {
+const LCanvas = ({ children , orbitControlActive, cameraPosition}) => {
   const dom = useStore((state) => state.dom)
+  const cameraRef = useRef();
   return (
-      <div className="canvas-wrapper">
         <Canvas
             mode='concurrent'
             onCreated={(state) => state.events.connect(dom.current)}
         >
-          {orbitControlActive && <OrbitControls /> }
+          {orbitControlActive && <OrbitControls camera={cameraRef.current} /> }
+          <PerspectiveCamera castShadow
+            position={[0,50,0]}
+            makeDefault={true}
+            ref={cameraRef}
+          />
           <Preload all />
             {children}
         </Canvas>
-      </div>
   )
 }
 

@@ -1,0 +1,12 @@
+%component-margin{
+    margin-bottom: rem(70);
+    @include responsiveFrom('lg'){
+        margin-bottom: rem(100);
+    }
+}
+
+%badge{
+    font-size: rem(16);
+    padding: rem(5) rem(10);
+    font-weight: $font-medium;
+}

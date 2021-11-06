@@ -1,0 +1,11 @@
+
+$background-color: #ffffff !default;
+$font-color: #000000 !default;
+
+// creates colors at root as custom variables
+@each $color,$val in $theme-colors{
+
+    :root{
+        --color-#{$color}: #{$val};
+    }
+}

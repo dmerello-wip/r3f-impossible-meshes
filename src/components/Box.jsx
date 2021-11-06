@@ -23,8 +23,6 @@ const BoxComponent = ({ color }) => {
         <boxBufferGeometry args={[1, 1, 1]} />
         <meshPhysicalMaterial color={color} />
       </mesh>
-      <directionalLight position={[5, 5, 5]} />
-      <ambientLight />
     </>
   )
 }
