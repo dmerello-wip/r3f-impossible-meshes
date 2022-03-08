@@ -1,5 +1,9 @@
 import LCanvas from '@/components/LCanvas'
-import ImpossibleTriangle from '@/components/ImpossibleTriangle'
+import DoubleTriangle from '@/components/DoubleTriangle'
+import Triangle from '@/components/Triangle'
+import Cube from '@/components/Cube'
+// import Cube from '@/components/CubeAutomaticLight'
+// import Cube from '@/components/CubeNoAutomaticLight'
 import { useEffect, useRef } from 'react'
 import useStore from '@/store/store'
 
@@ -12,7 +16,9 @@ export default function Hero({ title }) {
     <div className='c-hero' ref={ref}>
     <div className='c-hero__canvas'>
       <LCanvas orbitControlActive>
-        <ImpossibleTriangle/>
+        {/*<DoubleTriangle/>*/}
+        {/*<Triangle />*/}
+        <Cube />
         <directionalLight position={[5, 5, 5]} />
         <ambientLight />
       </LCanvas>

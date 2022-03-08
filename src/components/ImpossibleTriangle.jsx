@@ -7,12 +7,14 @@ import { gsap, Power4 } from "gsap";
 export default function ImpossibleTriangle({ ...props }) {
 
   const obj = useRef()
-  const initialPosition = { x: -20, y: null, z: null }
-  const initialRotation = { x: 180, y: 340, z: -70 }
+  // const initialPosition = { x: -20, y: null, z: null }
+  // const initialRotation = { x: 180, y: 340, z: -70 }
+  const initialPosition = { x: 0, y: null, z: null }
+  const initialRotation = { x: 125.00, y: 160, z: -44.9 }
   const finalRotation = { x: 125.30, y: 180, z: -44.9 }
   const finalPosition = { x: 5, y: -5, z: 0 }
-  const { nodes, materials } = useGLTF('/models/triangle.gltf')
-  
+  const { nodes, materials } = useGLTF('/models/GLTF1/triangle.gltf')
+
   // const { rotX, rotY, rotZ } = useControls({ rotX: finalRotation.x, rotY: finalRotation.y, rotZ: finalRotation.z});
 
   const startAnimation = (animationType)=> {
@@ -77,4 +79,4 @@ export default function ImpossibleTriangle({ ...props }) {
   )
 }
 
-useGLTF.preload('/models/triangle.gltf')
+useGLTF.preload('/models/GLTF1/triangle.gltf')

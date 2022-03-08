@@ -9,12 +9,12 @@ const LCanvas = ({ children , orbitControlActive, cameraPosition}) => {
   return (
         <Canvas
             mode='concurrent'
-            onCreated={(state) => state.events.connect(dom.current)}
+            // onCreated={(state) => state.events.connect(dom.current)}
         >
           {orbitControlActive && <OrbitControls camera={cameraRef.current} /> }
           <OrthographicCamera castShadow
-            zoom={30}
-            position={[0,0,20]}
+            zoom={60}
+            position={[0,0,30]}
             makeDefault={true}
             frustumCulled = {false}
             ref={cameraRef}
