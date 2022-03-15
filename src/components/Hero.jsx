@@ -4,10 +4,16 @@ import DoubleTriangle from '@/components/DoubleTriangle'
 // import Triangle from '@/components/TriangleAutomaticLight'
 // import Triangle from '@/components/TriangleAutomaticLight_2'
 // import Triangle from '@/components/TriangleNoAutomaticLight'
-import Triangle from '@/components/TriangleNoAutomaticLight_2'
+// import Triangle from '@/components/TriangleNoAutomaticLight_2'
+// import Triangle from '@/components/TriangleNoAutomaticLight_3'
+// import Triangle from '@/components/TriangleNoGlobalLight'
+ import Triangle from '@/components/Triangle3DS'
+//  import Triangle from '@/components/TriangleFBX'
 // import Cube from '@/components/Cube'
 // import Cube from '@/components/CubeAutomaticLight'
 // import Cube from '@/components/CubeNoAutomaticLight'
+// import Cube from '@/components/CubeFBX'
+
 import { useEffect, useRef } from 'react'
 import useStore from '@/store/store'
 
@@ -23,8 +29,8 @@ export default function Hero({ title }) {
         {/*<DoubleTriangle/>*/}
         <Triangle />
         {/*<Cube />*/}
-        <directionalLight position={[5, 5, 5]} />
-        <ambientLight />
+        {/*<directionalLight position={[5, 5, 5]} />*/}
+        {/*<ambientLight />*/}
       </LCanvas>
     </div>
       <div className='c-hero__content'>

@@ -1,6 +1,6 @@
 import { useRef } from 'react'
 import { Canvas } from '@react-three/fiber'
-import { PerspectiveCamera, OrthographicCamera ,OrbitControls, Preload } from '@react-three/drei'
+import {OrthographicCamera, OrbitControls, Preload, Point} from '@react-three/drei'
 import useStore from '@/store/store'
 
 const LCanvas = ({ children , orbitControlActive, cameraPosition}) => {
@@ -12,6 +12,7 @@ const LCanvas = ({ children , orbitControlActive, cameraPosition}) => {
             // onCreated={(state) => state.events.connect(dom.current)}
         >
           {orbitControlActive && <OrbitControls camera={cameraRef.current} /> }
+          {/*<pointLight color="white" intensity={10} position={[0, 10, 30]} />*/}
           <OrthographicCamera castShadow
             zoom={60}
             position={[0,0,30]}
@@ -19,6 +20,7 @@ const LCanvas = ({ children , orbitControlActive, cameraPosition}) => {
             frustumCulled = {false}
             ref={cameraRef}
           />
+
           <Preload all />
             {children}
         </Canvas>
