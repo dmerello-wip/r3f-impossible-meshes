@@ -1,0 +1,11 @@
+Model Information:
+* title:	Impossible Triangle
+* source:	https://sketchfab.com/3d-models/impossible-triangle-8012679e87d64f3b894bc734c41352ac
+* author:	Sam Javanrouh (https://sketchfab.com/samtimes)
+
+Model License:
+* license type:	CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
+* requirements:	Author must be credited. Commercial use is allowed.
+
+If you use this 3D model in your project be sure to copy paste this credit wherever you share it:
+This work is based on "Impossible Triangle" (https://sketchfab.com/3d-models/impossible-triangle-8012679e87d64f3b894bc734c41352ac) by Sam Javanrouh (https://sketchfab.com/samtimes) licensed under CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
