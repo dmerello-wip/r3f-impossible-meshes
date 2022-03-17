@@ -1,5 +1,5 @@
 import LCanvas from '@/components/LCanvas'
-import DoubleTriangle from '@/components/DoubleTriangle'
+// import DoubleTriangle from '@/components/DoubleTriangle'
 // import Triangle from '@/components/Triangle'
 // import Triangle from '@/components/TriangleAutomaticLight'
 // import Triangle from '@/components/TriangleAutomaticLight_2'
@@ -10,12 +10,14 @@ import DoubleTriangle from '@/components/DoubleTriangle'
 //  import Triangle from '@/components/Triangle3DS'
 //  import Triangle from '@/components/TriangleFBX'
 //  import Triangle from '@/components/Triangle3DS_2'
- import Triangle from '@/components/Triangle_6'
 //  import Triangle from '@/components/TriangleSketchfab'
 // import Cube from '@/components/Cube'
 // import Cube from '@/components/CubeAutomaticLight'
 // import Cube from '@/components/CubeNoAutomaticLight'
 // import Cube from '@/components/CubeFBX'
+import Triangle from '@/components/Triangle_6'
+import DoubleTriangle from '@/components/DoubleTriangle_6'
+import Cube from '@/components/Cube_6'
 
 import { useEffect, useRef } from 'react'
 import useStore from '@/store/store'
@@ -29,8 +31,8 @@ export default function Hero({ title }) {
     <div className='c-hero' ref={ref}>
     <div className='c-hero__canvas'>
       <LCanvas orbitControlActive>
-        {/*<DoubleTriangle/>*/}
-        <Triangle />
+        <DoubleTriangle/>
+        {/*<Triangle />*/}
         {/*<Cube />*/}
         {/*<directionalLight position={[5, 5, 5]} />*/}
         {/*<ambientLight />*/}
