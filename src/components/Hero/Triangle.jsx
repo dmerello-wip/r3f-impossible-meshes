@@ -5,7 +5,7 @@ import * as THREE from "three";
 export default function Triangle({ ...props }) {
 
   const group = useRef()
-  const { nodes, materials } = useGLTF('/models/sketchfab_triangle/scene.gltf')
+  const { nodes, materials } = useGLTF('/models/triangle.gltf')
 
 
   useEffect(()=>{
@@ -18,15 +18,14 @@ export default function Triangle({ ...props }) {
 
   return (
     <group ref={group} {...props} dispose={null}>
-      <group position={[0.06, -0.06, 0]} rotation={[-Math.PI / 2, -0.01, 0]} scale={[0.13, 0.13, 0.13]}>
-        <group position={[-1, -1, -1]}>
-          <mesh geometry={nodes.Object_3.geometry} material={materials['Material.001']} />
-          <mesh geometry={nodes.Object_4.geometry} material={materials['Material.002']} />
-          <mesh geometry={nodes.Object_5.geometry} material={materials['Material.003']} />
-        </group>
+      <PerspectiveCamera makeDefault={true} far={10000} fov={2.55} position={[2.3, 0.33, 126.43]} />
+      <group position={[0.5, 0.5, -0.4]} rotation={[-2.5, 0.8, 3.11]} scale={[4.86, 4.86, 4.86]}>
+        <mesh geometry={nodes.Triangle_1.geometry} material={materials.Material_001} />
+        <mesh geometry={nodes.Triangle_2.geometry} material={materials.Material_002} />
+        <mesh geometry={nodes.Triangle_3.geometry} material={materials.Material_003} />
       </group>
     </group>
   )
 }
 
-useGLTF.preload('/models/sketchfab_triangle/scene.gltf')
+useGLTF.preload('/models/triangle.gltf')

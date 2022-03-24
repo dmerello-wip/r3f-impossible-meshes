@@ -2,10 +2,10 @@ import React, {useEffect, useRef} from 'react'
 import {PerspectiveCamera, useGLTF} from '@react-three/drei'
 import * as THREE from "three";
 
-export default function Triangle({ ...props }) {
+export default function Cube({ ...props }) {
 
   const group = useRef()
-  const { nodes, materials } = useGLTF('/models/triangle.gltf')
+  const { nodes, materials } = useGLTF('/models/cube.gltf')
 
 
   useEffect(()=>{
@@ -18,8 +18,8 @@ export default function Triangle({ ...props }) {
 
   return (
     <group ref={group} {...props} dispose={null}>
-      <PerspectiveCamera makeDefault={false} far={10000} fov={2.55} position={[2.41, 0.35, 126.43]} />
-      <group position={[0.36, 0.5, -0.4]} rotation={[-2.5, 0.82, 3.11]} scale={[4.85, 4.85, 4.85]}>
+      <PerspectiveCamera makeDefault={false} far={10000} fov={2.55} position={[2.3, 0.33, 126.43]} />
+      <group position={[2.41, 0.33, -0.41]} rotation={[0.47, -Math.PI / 4, 0]} scale={[0.42, 0.42, 0.42]}>
         <mesh geometry={nodes.Cube_1.geometry} material={materials.Material_001} />
         <mesh geometry={nodes.Cube_2.geometry} material={materials.Material_002} />
         <mesh geometry={nodes.Cube_3.geometry} material={materials.Material_003} />
@@ -28,4 +28,4 @@ export default function Triangle({ ...props }) {
   )
 }
 
-useGLTF.preload('/models/triangle.gltf')
+useGLTF.preload('/models/cube.gltf')
