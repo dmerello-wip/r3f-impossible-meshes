@@ -2,7 +2,7 @@ import Scene from './Scene'
 import Triangle from './Triangle'
 import DoubleTriangle from './DoubleTriangle'
 import Cube from './Cube'
-import {useState} from "react";
+import {useState, useEffect} from "react";
 
 export default function Hero({contents}) {
 
@@ -16,9 +16,9 @@ export default function Hero({contents}) {
   const [nextSlideIndex, setNextSlideIndex] = useState();
   const [currentSlideIndex, setCurrentSlideIndex] = useState(0);
 
-  const changeHandler = (nextSlideIndex)=>{
+  const changeHandler = (index)=>{
     if(nextSlideIndex===currentSlideIndex) return;
-    setNextSlideIndex(nextSlideIndex);
+    setNextSlideIndex(index);
     setAnimationState('out');
   };
 
@@ -28,11 +28,27 @@ export default function Hero({contents}) {
     setCurrentSlideIndex(nextSlideIndex);
   };
 
+  const animationIn = ()=>{
+    console.log('animating IN');
+  };
+
+  const animationOut = ()=>{
+    console.log('animating OUT');
+    setTimeout(()=>{
+      changeCallback();
+    }, 4000);
+  };
+
+  useEffect(()=>{
+    const animation = (animationState==='in') ? animationIn : animationOut;
+    animation();
+  }, [animationState]);
+
   const renderNavigation = ()=>{
     return slidesData.map((el, i)=>{
       let itemClass = (i===currentSlideIndex) ? "c-hero__navigation__item c-hero__navigation__item--active" : "c-hero__navigation__item";
       return (
-        <div className={itemClass} onClick={()=>{changeHandler(i)}}>{el.index} - {el.title}</div>
+        <div key={`animation-item-${i}`} className={itemClass} onClick={()=>{changeHandler(i)}}>{el.index} - {el.title}</div>
       );
     });
   }
@@ -46,9 +62,11 @@ export default function Hero({contents}) {
       </div>
       <div className='c-hero__canvas'>
         <Scene orbitControlActive>
-          {(slideData.model==='DoubleTriangle') && <DoubleTriangle animationState={animationState} animationCallback={changeCallback}/>}
-          {(slideData.model==='Triangle') && <Triangle animationState={animationState} animationCallback={changeCallback}/>}
-          {(slideData.model==='Cube') && <Cube animationState={animationState} animationCallback={changeCallback}/>}
+          <group position={[0,0,0]} rotation={[0,0,0]}>
+            {(slideData.model==='DoubleTriangle') && <DoubleTriangle />}
+            {(slideData.model==='Triangle') && <Triangle />}
+            {(slideData.model==='Cube') && <Cube />}
+          </group>
         </Scene>
       </div>
       <div className='c-hero__content' data-animation={animationState}>
