@@ -5,31 +5,30 @@ import * as THREE from "three";
 export default function DoubleTriangle({ ...props }) {
 
   const group = useRef()
-  const { nodes, materials } = useGLTF('/models/doubletriangle.gltf')
-
+  const { nodes, materials } = useGLTF('/models/triangle.gltf');
+  const m = useGLTF('/models/triangle.gltf');
+  console.log(m.materials.Material_001);
 
   useEffect(()=>{
-    // materials['Material_001'].color = new THREE.Color('rgb(68, 119, 141)');
-    // materials['Material_002'].color = new THREE.Color('rgb(55, 96, 112)');
-    // materials['Material_003'].color = new THREE.Color('rgb(42, 70, 112)');
-  }, [materials]);
-
+    materials.Material_001.emissive = new THREE.Color('rgb(203, 112, 79)');
+    materials.Material_002.emissive = new THREE.Color('rgb(154,75,45)');
+    materials.Material_003.emissive = new THREE.Color('rgb(70,45,27)');
+  }, []);
 
   return (
     <group ref={group} {...props} dispose={null}>
-      <PerspectiveCamera makeDefault={false} far={10000} fov={3.85} position={[2.3, 0.33, 126.43]} />
       <group position={[0.5, 0.5, -0.4]} rotation={[-2.5, 0.8, 3.11]} scale={[4.86, 4.86, 4.86]}>
-        <mesh geometry={nodes.Triangle_1.geometry} material={nodes.Triangle_1.material} />
-        <mesh geometry={nodes.Triangle_3.geometry} material={nodes.Triangle_3.material} />
-        <mesh geometry={nodes.Triangle_4.geometry} material={nodes.Triangle_4.material} />
+        <mesh geometry={nodes.Triangle_1.geometry} material={materials.Material_001} />
+        <mesh geometry={nodes.Triangle_2.geometry} material={materials.Material_002} />
+        <mesh geometry={nodes.Triangle_3.geometry} material={materials.Material_003} />
       </group>
       <group position={[5.41, 1.79, -0.27]} rotation={[2.53, -0.8, -0.01]} scale={[4.86, 4.86, 4.86]}>
-        <mesh geometry={nodes.Triangle_2_1.geometry} material={nodes.Triangle_2_1.material} />
-        <mesh geometry={nodes.Triangle_2_2.geometry} material={nodes.Triangle_2_2.material} />
-        <mesh geometry={nodes.Triangle_2_3.geometry} material={nodes.Triangle_2_3.material} />
+        <mesh geometry={nodes.Triangle_1.geometry} material={materials.Material_001} />
+        <mesh geometry={nodes.Triangle_2.geometry} material={materials.Material_002} />
+        <mesh geometry={nodes.Triangle_3.geometry} material={materials.Material_003} />
       </group>
     </group>
   )
 }
 
-useGLTF.preload('/models/doubletriangle.gltf')
+useGLTF.preload('/models/triangle.gltf')
