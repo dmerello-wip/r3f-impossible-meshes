@@ -1,6 +1,5 @@
 import React, {useEffect, useRef} from 'react'
 import {PerspectiveCamera, useGLTF} from '@react-three/drei'
-import * as THREE from "three";
 
 export default function Triangle({...props}) {
 

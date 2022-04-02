@@ -6,7 +6,6 @@
   display: flex;
   justify-content: space-between;
   color: getColor('light');
-  background: rgba(22, 22, 22, 1);
 
   &__content {
     display: flex;
@@ -29,10 +28,6 @@
   &__canvas {
     width: 50%;
     display: flex;
-
-    canvas {
-      border: 1px solid red;
-    }
   }
 
   &__debug {
