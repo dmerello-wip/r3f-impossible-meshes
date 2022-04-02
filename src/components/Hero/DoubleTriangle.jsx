@@ -1,5 +1,5 @@
 import React, {useEffect, useRef} from 'react'
-import {PerspectiveCamera, useGLTF} from '@react-three/drei'
+import {useGLTF} from '@react-three/drei'
 import * as THREE from "three";
 
 export default function DoubleTriangle({ ...props }) {
@@ -7,12 +7,16 @@ export default function DoubleTriangle({ ...props }) {
   const group = useRef()
   const { nodes, materials } = useGLTF('/models/triangle.gltf');
   const m = useGLTF('/models/triangle.gltf');
-  console.log(m.materials.Material_001);
+  const colors = [
+    new THREE.Color('rgb(203, 112, 79)'),
+    new THREE.Color('rgb(154,75,45)'),
+    new THREE.Color('rgb(70,45,27)')
+  ];
 
   useEffect(()=>{
-    materials.Material_001.emissive = new THREE.Color('rgb(203, 112, 79)');
-    materials.Material_002.emissive = new THREE.Color('rgb(154,75,45)');
-    materials.Material_003.emissive = new THREE.Color('rgb(70,45,27)');
+    materials.Material_001.emissive = colors[0];
+    materials.Material_002.emissive = colors[1];
+    materials.Material_003.emissive = colors[2];
   }, []);
 
   return (
