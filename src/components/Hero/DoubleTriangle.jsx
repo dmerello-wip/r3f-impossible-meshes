@@ -1,32 +1,42 @@
 import React, {useEffect, useRef} from 'react'
 import {useGLTF} from '@react-three/drei'
 import * as THREE from "three";
+import { useControls, folder } from 'leva';
 
 export default function DoubleTriangle({ ...props }) {
 
   const group = useRef()
   const { nodes, materials } = useGLTF('/models/triangle.gltf');
-  const m = useGLTF('/models/triangle.gltf');
-  const colors = [
-    new THREE.Color('rgb(203, 112, 79)'),
-    new THREE.Color('rgb(154,75,45)'),
-    new THREE.Color('rgb(70,45,27)')
-  ];
+  const t1 = {
+      t1_x: -2.504,
+      t1_y: 0.82,
+      t1_z: 3.11
+    };
+  const t2 = {
+      t2_x: 2.50,
+      t2_y: -0.82,
+      t2_z: -0.035
+    };
+  // leva controls to test:
+  // const { t1_x, t1_y, t1_z , t2_x, t2_y, t2_z } = useControls({
+  //   triangle_1 : folder(t1),
+  //   triangle_2 : folder(t2),
+  // });
 
   useEffect(()=>{
-    materials.Material_001.emissive = colors[0];
-    materials.Material_002.emissive = colors[1];
-    materials.Material_003.emissive = colors[2];
+    materials.Material_001.emissive = new THREE.Color('rgb(203, 112, 79)');
+    materials.Material_002.emissive = new THREE.Color('rgb(154,75,45)');
+    materials.Material_003.emissive = new THREE.Color('rgb(70,45,27)');
   }, []);
 
   return (
     <group ref={group} {...props} dispose={null}>
-      <group position={[0.5, 0.5, -0.4]} rotation={[-2.5, 0.8, 3.11]} scale={[4.86, 4.86, 4.86]}>
+      <group position={[-1.6, 0, 0]} rotation={[t1.t1_x, t1.t1_y, t1.t1_z]} scale={[3.6, 3.6, 3.6]}>
         <mesh geometry={nodes.Triangle_1.geometry} material={materials.Material_001} />
         <mesh geometry={nodes.Triangle_2.geometry} material={materials.Material_002} />
         <mesh geometry={nodes.Triangle_3.geometry} material={materials.Material_003} />
       </group>
-      <group position={[5.41, 1.79, -0.27]} rotation={[2.53, -0.8, -0.01]} scale={[4.86, 4.86, 4.86]}>
+      <group position={[1.8, 1.2, 0]} rotation={[t2.t2_x, t2.t2_y, t2.t2_z]} scale={[3.6, 3.6, 3.6]}>
         <mesh geometry={nodes.Triangle_1.geometry} material={materials.Material_001} />
         <mesh geometry={nodes.Triangle_2.geometry} material={materials.Material_002} />
         <mesh geometry={nodes.Triangle_3.geometry} material={materials.Material_003} />

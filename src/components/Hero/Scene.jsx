@@ -9,8 +9,8 @@ const Scene = ({ children , orbitControlActive}) => {
           {orbitControlActive && <OrbitControls camera={cameraRef.current} /> }
           {/*<pointLight color="white" intensity={10} position={[0, 10, 30]} />*/}
           <OrthographicCamera castShadow
-            zoom={60}
-            position={[0,0,30]}
+            zoom={90}
+            position={[0,0,80]}
             makeDefault={true}
             frustumCulled = {false}
             ref={cameraRef}

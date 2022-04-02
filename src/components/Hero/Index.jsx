@@ -17,7 +17,7 @@ export default function Hero({contents}) {
   const [currentSlideIndex, setCurrentSlideIndex] = useState(0);
 
   const changeHandler = (index)=>{
-    if(nextSlideIndex===currentSlideIndex) return;
+    if(index===currentSlideIndex) return;
     setNextSlideIndex(index);
     setAnimationState('out');
   };
@@ -36,7 +36,7 @@ export default function Hero({contents}) {
     console.log('animating OUT');
     setTimeout(()=>{
       changeCallback();
-    }, 4000);
+    }, 1000);
   };
 
   useEffect(()=>{
@@ -55,11 +55,6 @@ export default function Hero({contents}) {
 
   return (
     <div className='c-hero'>
-      <div>
-        <div>currentSlideIndex: {currentSlideIndex}</div>
-        <div>nextSlideIndex: {nextSlideIndex}</div>
-        <div>animationState: {animationState}</div>
-      </div>
       <div className='c-hero__canvas'>
         <Scene orbitControlActive>
           <group position={[0,0,0]} rotation={[0,0,0]}>
@@ -78,6 +73,11 @@ export default function Hero({contents}) {
       </div>
       <div className="c-hero__navigation">
         {renderNavigation()}
+      </div>
+      <div className="c-hero__debug">
+          <div>currentSlideIndex: {currentSlideIndex}</div>
+          <div>nextSlideIndex: {nextSlideIndex}</div>
+          <div>animationState: {animationState}</div>
       </div>
     </div>
   )
