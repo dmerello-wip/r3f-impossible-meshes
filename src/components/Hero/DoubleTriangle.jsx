@@ -3,7 +3,7 @@ import {useGLTF} from '@react-three/drei'
 import * as THREE from "three";
 import { useControls, folder } from 'leva';
 
-export default function DoubleTriangle({ ...props }) {
+export default function DoubleTriangle({ emissivity }) {
 
   const { nodes, materials } = useGLTF('/models/triangle.gltf');
   // set of Triangles positions tested with Leva controller
@@ -33,8 +33,15 @@ export default function DoubleTriangle({ ...props }) {
     materials.Material_003.emissive = materials.Material_003.color;
   }, []);
 
+  useEffect(()=>{
+    materials.Material_001.emissiveIntensity = emissivity;
+    materials.Material_002.emissiveIntensity = emissivity;
+    materials.Material_003.emissiveIntensity = emissivity;
+  }, [emissivity]);
+
+
   return (
-    <group {...props} dispose={null}>
+    <group  dispose={null}>
       {/* remove t1. from rotation params to test positions with Leva control */}
       <group position={[-1.6, 0, 0]} rotation={[t1.t1_x, t1.t1_y, t1.t1_z]} scale={[3.6, 3.6, 3.6]}>
         <mesh geometry={nodes.Triangle_1.geometry} material={materials.Material_001} />

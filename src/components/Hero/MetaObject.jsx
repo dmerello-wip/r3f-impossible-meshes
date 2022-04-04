@@ -8,10 +8,12 @@ import Cube from "@/components/Hero/Cube";
 
 export default function MetaObject({children, animationState, callBack, modelType}) {
   const objectRef = useRef();
-  const [hovered, setHovered] = useState(false)
+  const opacityRef = useRef(1);
+  const [hovered, setHovered] = useState(false);
+  const [opacity, setOpacity] = useState(0);
 
   /* number of degrees you want to rotate maximum) */
-  const degreeRotationLimit = 180;
+  const degreeRotationLimit = 20;
   const animationSpeed = 0.8;
 
 
@@ -38,26 +40,32 @@ export default function MetaObject({children, animationState, callBack, modelTyp
 
   const animationIn = ()=> {
     let animationParams = {
-      rotY: objectRef.current.rotation.y
+      rotY: objectRef.current.rotation.y,
+      opacity: 1
     };
     gsap.from(animationParams, animationSpeed, {
       rotY : MathUtils.degToRad(-degreeRotationLimit),
+      opacity: 0,
       ease: Power2.easeOut,
       onUpdate: () => {
         objectRef.current.rotation.y = animationParams.rotY;
+        setOpacity(animationParams.opacity);
       }
     });
   };
 
   const animationOut = ()=> {
     let animationParams = {
-      rotY: objectRef.current.rotation.y
+      rotY: objectRef.current.rotation.y,
+      opacity: 1
     };
     gsap.to(animationParams, animationSpeed, {
       rotY : MathUtils.degToRad(degreeRotationLimit),
+      opacity: 0,
       ease: Power2.easeIn,
       onUpdate: () => {
         objectRef.current.rotation.y = animationParams.rotY;
+        setOpacity(animationParams.opacity);
       },
       onComplete: ()=>{
         objectRef.current.rotation.y = 0;
@@ -85,9 +93,9 @@ export default function MetaObject({children, animationState, callBack, modelTyp
            onPointerOver={() => setHovered(true)}
            onPointerOut={() => setHovered(false)}
     >
-      {(modelType==='DoubleTriangle') && <DoubleTriangle />}
-      {(modelType==='Triangle') && <Triangle />}
-      {(modelType==='Cube') && <Cube />}
+      {(modelType==='DoubleTriangle') && <DoubleTriangle emissivity={opacity}/>}
+      {(modelType==='Triangle') && <Triangle emissivity={opacity}/>}
+      {(modelType==='Cube') && <Cube emissivity={opacity}/>}
     </group>
   )
 }
