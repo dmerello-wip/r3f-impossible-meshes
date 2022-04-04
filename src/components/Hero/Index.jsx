@@ -1,8 +1,12 @@
 import Scene from './Scene'
 import MetaObject from './MetaObject'
-import {useState} from "react";
+import {useRef, useState, useEffect} from "react";
+import NormalizeWheel from 'normalize-wheel';
+
 
 export default function Hero({contents}) {
+
+  const heroRef = useRef();
 
   const slidesData = contents.map((elem,i)=> {
     elem.index = i+1;
@@ -35,10 +39,32 @@ export default function Hero({contents}) {
     });
   }
 
+
+  const onWheel = () => {
+    const normalized = NormalizeWheel(event);
+    console.log(normalized.pixelY);
+  };
+
+  /* ---------------------------------------------------------------------*/
+  /* ---------------------  EFFECTS --------------------------------------*/
+  /* ---------------------------------------------------------------------*/
+
+  /* ---- Trig scroll and swype state -------------------------------------*/
+
+  useEffect(() => {
+    heroRef.current.addEventListener('mousewheel', onWheel);
+  }, []);
+
+
+  /* ---------------------------------------------------------------------*/
+  /* ---------------------  RENDER ---------------------------------------*/
+  /* ---------------------------------------------------------------------*/
+
   return (
-    <div className='c-hero'>
+    <div className='c-hero' ref={heroRef}>
       <div className='c-hero__canvas'>
-        <Scene orbitControlActive>
+        {/*<Scene orbitControlActive>*/}
+        <Scene>
           <MetaObject
             animationState={animationState}
             callBack={changeCallback}
