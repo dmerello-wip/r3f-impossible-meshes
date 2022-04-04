@@ -9,6 +9,7 @@ import Cube from "@/components/Hero/Cube";
 export default function MetaObject({children, animationState, callBack, modelType}) {
 
   const objectRef = useRef();
+
   const touchIsStarted = useRef();
   const touchStartPos = useRef();
   const touchSpeed = useRef(0);
@@ -133,7 +134,6 @@ export default function MetaObject({children, animationState, callBack, modelTyp
   /* ---------------------------------------------------------------------*/
   /* ---------------------  RENDER ---------------------------------------*/
   /* ---------------------------------------------------------------------*/
-
 
   return (
     <group ref={objectRef}

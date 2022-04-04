@@ -63,8 +63,8 @@ export default function Hero({contents}) {
   return (
     <div className='c-hero' ref={heroRef}>
       <div className='c-hero__canvas'>
-        {/*<Scene orbitControlActive>*/}
         <Scene>
+        {/*<Scene>*/}
           <MetaObject
             animationState={animationState}
             callBack={changeCallback}

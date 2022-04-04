@@ -9,7 +9,9 @@ const Scene = ({ children , orbitControlActive}) => {
   //TODO: create a plane, add light, rotate camera and metaObject accordingly to mantain the perspective effect
   return (
         <Canvas mode='concurrent' shadowMap >
-          {orbitControlActive && <OrbitControls camera={cameraRef.current} /> }
+          {/*<OrbitControls*/}
+          {/*  camera={cameraRef.current}*/}
+          {/*/>*/}
           <OrthographicCamera castShadow
             zoom={90}
             position={[0,0,80]}
