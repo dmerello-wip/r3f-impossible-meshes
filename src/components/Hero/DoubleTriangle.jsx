@@ -7,6 +7,7 @@ export default function DoubleTriangle({ ...props }) {
 
   const group = useRef()
   const { nodes, materials } = useGLTF('/models/triangle.gltf');
+  // set of Triangles positions tested with Leva controller
   const t1 = {
       t1_x: -2.504,
       t1_y: 0.82,
@@ -17,6 +18,7 @@ export default function DoubleTriangle({ ...props }) {
       t2_y: -0.82,
       t2_z: -0.035
     };
+
   // leva controls to test:
   // const { t1_x, t1_y, t1_z , t2_x, t2_y, t2_z } = useControls({
   //   triangle_1 : folder(t1),
@@ -31,11 +33,13 @@ export default function DoubleTriangle({ ...props }) {
 
   return (
     <group ref={group} {...props} dispose={null}>
+      {/* remove t1. from rotation params to test positions with Leva control */}
       <group position={[-1.6, 0, 0]} rotation={[t1.t1_x, t1.t1_y, t1.t1_z]} scale={[3.6, 3.6, 3.6]}>
         <mesh geometry={nodes.Triangle_1.geometry} material={materials.Material_001} />
         <mesh geometry={nodes.Triangle_2.geometry} material={materials.Material_002} />
         <mesh geometry={nodes.Triangle_3.geometry} material={materials.Material_003} />
       </group>
+      {/* remove t2. from rotation params to test positions with Leva control */}
       <group position={[1.8, 1.2, 0]} rotation={[t2.t2_x, t2.t2_y, t2.t2_z]} scale={[3.6, 3.6, 3.6]}>
         <mesh geometry={nodes.Triangle_1.geometry} material={materials.Material_001} />
         <mesh geometry={nodes.Triangle_2.geometry} material={materials.Material_002} />

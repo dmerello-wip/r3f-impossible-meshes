@@ -29,22 +29,6 @@ export default function Hero({contents}) {
     setCurrentSlideIndex(nextSlideIndex);
   };
 
-  const animationIn = ()=>{
-    console.log('animating IN');
-  };
-
-  const animationOut = ()=>{
-    console.log('animating OUT');
-    setTimeout(()=>{
-      changeCallback();
-    }, 1000);
-  };
-
-  useEffect(()=>{
-    const animation = (animationState==='in') ? animationIn : animationOut;
-    animation();
-  }, [animationState]);
-
   const renderNavigation = ()=>{
     return slidesData.map((el, i)=>{
       let itemClass = (i===currentSlideIndex) ? "c-hero__navigation__item c-hero__navigation__item--active" : "c-hero__navigation__item";
@@ -58,7 +42,7 @@ export default function Hero({contents}) {
     <div className='c-hero'>
       <div className='c-hero__canvas'>
         <Scene orbitControlActive>
-          <MetaObject animationState={animationState}>
+          <MetaObject animationState={animationState} callBack={changeCallback}>
             {(slideData.model==='DoubleTriangle') && <DoubleTriangle />}
             {(slideData.model==='Triangle') && <Triangle />}
             {(slideData.model==='Cube') && <Cube />}
@@ -74,11 +58,6 @@ export default function Hero({contents}) {
       </div>
       <div className="c-hero__navigation">
         {renderNavigation()}
-      </div>
-      <div className="c-hero__debug">
-          <div>currentSlideIndex: {currentSlideIndex}</div>
-          <div>nextSlideIndex: {nextSlideIndex}</div>
-          <div>animationState: {animationState}</div>
       </div>
     </div>
   )
