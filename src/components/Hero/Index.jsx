@@ -58,7 +58,7 @@ export default function Hero({contents}) {
     <div className='c-hero'>
       <div className='c-hero__canvas'>
         <Scene orbitControlActive>
-          <MetaObject animation={animationState}>
+          <MetaObject animationState={animationState}>
             {(slideData.model==='DoubleTriangle') && <DoubleTriangle />}
             {(slideData.model==='Triangle') && <Triangle />}
             {(slideData.model==='Cube') && <Cube />}
