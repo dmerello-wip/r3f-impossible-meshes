@@ -2,8 +2,11 @@ import React, {useEffect, useState, useRef} from 'react'
 import {useFrame} from "@react-three/fiber"
 import {MathUtils, Vector3} from 'three'
 import {Power2, gsap} from "gsap";
+import DoubleTriangle from "@/components/Hero/DoubleTriangle";
+import Triangle from "@/components/Hero/Triangle";
+import Cube from "@/components/Hero/Cube";
 
-export default function MetaObject({children, animationState, callBack}) {
+export default function MetaObject({children, animationState, callBack, modelType}) {
   const objectRef = useRef();
   const [hovered, setHovered] = useState(false)
 
@@ -82,7 +85,9 @@ export default function MetaObject({children, animationState, callBack}) {
            onPointerOver={() => setHovered(true)}
            onPointerOut={() => setHovered(false)}
     >
-      {children}
+      {(modelType==='DoubleTriangle') && <DoubleTriangle />}
+      {(modelType==='Triangle') && <Triangle />}
+      {(modelType==='Cube') && <Cube />}
     </group>
   )
 }

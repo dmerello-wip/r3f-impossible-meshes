@@ -1,9 +1,6 @@
 import Scene from './Scene'
-import Triangle from './Triangle'
-import DoubleTriangle from './DoubleTriangle'
-import Cube from './Cube'
 import MetaObject from './MetaObject'
-import {useState, useEffect} from "react";
+import {useState} from "react";
 
 export default function Hero({contents}) {
 
@@ -42,10 +39,11 @@ export default function Hero({contents}) {
     <div className='c-hero'>
       <div className='c-hero__canvas'>
         <Scene orbitControlActive>
-          <MetaObject animationState={animationState} callBack={changeCallback}>
-            {(slideData.model==='DoubleTriangle') && <DoubleTriangle />}
-            {(slideData.model==='Triangle') && <Triangle />}
-            {(slideData.model==='Cube') && <Cube />}
+          <MetaObject
+            animationState={animationState}
+            callBack={changeCallback}
+            modelType={slideData.model}
+          >
           </MetaObject>
         </Scene>
       </div>
