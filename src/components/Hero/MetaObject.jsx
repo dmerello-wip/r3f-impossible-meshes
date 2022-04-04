@@ -12,13 +12,10 @@ export default function MetaObject({children, animationState, callBack, modelTyp
   const touchIsStarted = useRef();
   const touchStartPos = useRef();
   const touchSpeed = useRef(0);
-  const rotationForce = useRef(0);
+
   const [hovered, setHovered] = useState(false);
   const [opacity, setOpacity] = useState(0);
-
-
-  const forceDecellerationFactor = 0.8;
-  const decellerationFactor = 0.05;
+  const [isDragging, setIsDragging] = useState(false);
 
   /* ---------------------------------------------------------------------*/
   /* ------------------------- CONFIG ------------------------------------*/
@@ -35,14 +32,7 @@ export default function MetaObject({children, animationState, callBack, modelTyp
   useFrame((state) => {
     /* Basic floating animation */
     const t = state.clock.getElapsedTime()
-    objectRef.current.position.y = (1 + Math.sin(t / 1.5)) / 10;
-
-    // set the new position:
-    rotationForce.current -= decellerationFactor * touchSpeed.current;
-    // move DOM accordingly
-    objectRef.current.rotation.y = rotationForce.current
-    // decrement the force
-    touchSpeed.current = touchSpeed.current * forceDecellerationFactor;
+    objectRef.current.position.y = (1 + Math.sin(t / 1.5)) / 8;
   });
 
   const animationIn = ()=> {
@@ -81,6 +71,23 @@ export default function MetaObject({children, animationState, callBack, modelTyp
     });
   };
 
+  const animationDrag = ()=>{
+    if(!isDragging) {
+      setIsDragging(true);
+      gsap.to(objectRef.current.rotation, animationSpeed, {
+        y : objectRef.current.rotation.y - touchSpeed.current,
+        ease: Power2.easeOut,
+        onComplete: ()=>{
+          setIsDragging(false);
+          gsap.to(objectRef.current.rotation, 0.5, {
+            y : 0,
+            ease: Power2.easeIn
+          });
+        }
+      });
+    }
+  };
+
 
 
   /* ---------------------------------------------------------------------*/
@@ -96,14 +103,12 @@ export default function MetaObject({children, animationState, callBack, modelTyp
   const onPointerMove = (event) => {
     if (!touchIsStarted.current) return;
     let newPosition = event.touches ? event.touches[0].clientX : event.clientX;
-    let distance = touchStartPos.current - newPosition;
-    touchSpeed.current = Math.round(distance);
-    console.log(touchSpeed.current);
+    touchSpeed.current = Math.round( touchStartPos.current - newPosition ) * 0.05;
+    animationDrag();
   };
 
   const onPointerUp = (event) => {
     touchIsStarted.current = false;
-    console.log('onPointerUp');
   };
 ;
   /* ---------------------------------------------------------------------*/
@@ -123,6 +128,7 @@ export default function MetaObject({children, animationState, callBack, modelTyp
   useEffect(() => {
     document.body.style.cursor = hovered ? 'all-scroll' : 'auto';
   }, [hovered]);
+
 
   /* ---------------------------------------------------------------------*/
   /* ---------------------  RENDER ---------------------------------------*/
