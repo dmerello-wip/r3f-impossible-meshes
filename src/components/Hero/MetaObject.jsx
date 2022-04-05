@@ -1,7 +1,7 @@
 import React, {useEffect, useState, useRef} from 'react'
 import {useFrame} from "@react-three/fiber"
 import {MathUtils, Vector3} from 'three'
-import {Power2, gsap} from "gsap";
+import {Power2, Linear, gsap} from "gsap";
 import DoubleTriangle from "@/components/Hero/DoubleTriangle";
 import Triangle from "@/components/Hero/Triangle";
 import Cube from "@/components/Hero/Cube";
@@ -73,20 +73,17 @@ export default function MetaObject({children, animationState, callBack, modelTyp
   };
 
   const animationDrag = ()=>{
-    if(!isDragging) {
-      setIsDragging(true);
-      gsap.to(objectRef.current.rotation, animationSpeed, {
+      gsap.to(objectRef.current.rotation, 0.25, {
         y : objectRef.current.rotation.y - touchSpeed.current,
-        ease: Power2.easeOut,
-        onComplete: ()=>{
-          setIsDragging(false);
-          gsap.to(objectRef.current.rotation, 0.5, {
-            y : 0,
-            ease: Power2.easeIn
-          });
-        }
+        ease: Linear.easeNone,
       });
-    }
+  };
+
+  const animationDragOut = ()=>{
+      gsap.to(objectRef.current.rotation, 1, {
+        y : 0,
+        ease: Power2.easeIn
+      });
   };
 
 
@@ -103,18 +100,26 @@ export default function MetaObject({children, animationState, callBack, modelTyp
 
   const onPointerMove = (event) => {
     if (!touchIsStarted.current) return;
-    let newPosition = event.touches ? event.touches[0].clientX : event.clientX;
-    touchSpeed.current = Math.round( touchStartPos.current - newPosition ) * 0.05;
+    let newPosition = (event.touches) ? event.touches[0].clientX : event.clientX;
+    touchSpeed.current = Math.round( touchStartPos.current - newPosition ) * 0.00005;
     animationDrag();
   };
 
   const onPointerUp = (event) => {
+    if (!touchIsStarted.current) return;
     touchIsStarted.current = false;
+    animationDragOut();
   };
-;
   /* ---------------------------------------------------------------------*/
   /* ---------------------  EFFECTS --------------------------------------*/
   /* ---------------------------------------------------------------------*/
+
+  useEffect(()=>{
+    document.addEventListener('mouseup', onPointerUp);
+    document.addEventListener('touchend', onPointerUp);
+    document.addEventListener('mousemove', onPointerMove);
+    document.addEventListener('touchmove', onPointerMove);
+  }, []);
 
   /* ---- Trig animation state -------------------------------------------*/
 
@@ -140,11 +145,8 @@ export default function MetaObject({children, animationState, callBack, modelTyp
            onPointerOver={() => setHovered(true)}
            onPointerOut={() => {
              setHovered(false);
-             onPointerUp();
            }}
            onPointerDown={onPointerDown}
-           onPointerUp={onPointerUp}
-           onPointerMove={onPointerMove}
     >
       {(modelType==='DoubleTriangle') && <DoubleTriangle emissivity={opacity}/>}
       {(modelType==='Triangle') && <Triangle emissivity={opacity}/>}
