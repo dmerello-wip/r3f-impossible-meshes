@@ -26,6 +26,15 @@ export default function Hero({contents}) {
     setAnimationState('out');
   };
 
+  const goNext = ()=>{
+    console.log(`currentSlideIndex: ${currentSlideIndex}`);
+    changeHandler(currentSlideIndex+1);
+  }
+  const goPrev = ()=>{
+    console.log(`currentSlideIndex: ${currentSlideIndex}`);
+    changeHandler(currentSlideIndex-1);
+  }
+
   const changeCallback = ()=>{
     setSlideData(slidesData[nextSlideIndex]);
     setAnimationState('in');
@@ -41,10 +50,14 @@ export default function Hero({contents}) {
     });
   }
 
-
-  const onWheel = () => {
-    const normalized = NormalizeWheel(event);
-    console.log(normalized.pixelY);
+  const onWheel = (e) => {
+    // TODO: debounce || removeEvent while animating
+    const normalized = NormalizeWheel(e);
+    if (normalized.pixelY<0) {
+      goPrev();
+    } else {
+      goNext();
+    }
   };
 
   /* ---------------------------------------------------------------------*/
@@ -59,6 +72,10 @@ export default function Hero({contents}) {
     // listen to wheel
     heroRef.current.addEventListener('wheel', onWheel);
   }, []);
+
+  useEffect(()=>{
+    console.log(`useEffect: currentSlideIndex: ${currentSlideIndex}`)
+  }, [currentSlideIndex])
 
   /* ---------------------------------------------------------------------*/
   /* ---------------------  RENDER ---------------------------------------*/
