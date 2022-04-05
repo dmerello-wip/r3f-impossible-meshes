@@ -2,11 +2,13 @@ import Scene from './Scene'
 import MetaObject from './MetaObject'
 import {useRef, useState, useEffect} from "react";
 import NormalizeWheel from 'normalize-wheel';
+import useScrollToggler from '../../hooks/useScrollToggler';
 
 
 export default function Hero({contents}) {
 
   const heroRef = useRef();
+  const [scrollIsActive, toggleScroll] = useScrollToggler();
 
   const slidesData = contents.map((elem,i)=> {
     elem.index = i+1;
@@ -52,9 +54,11 @@ export default function Hero({contents}) {
   /* ---- Trig scroll and swype state -------------------------------------*/
 
   useEffect(() => {
-    heroRef.current.addEventListener('mousewheel', onWheel);
+    // prevent default page scrolling
+    toggleScroll(false);
+    // listen to wheel
+    heroRef.current.addEventListener('wheel', onWheel);
   }, []);
-
 
   /* ---------------------------------------------------------------------*/
   /* ---------------------  RENDER ---------------------------------------*/
@@ -64,7 +68,6 @@ export default function Hero({contents}) {
     <div className='c-hero' ref={heroRef}>
       <div className='c-hero__canvas'>
         <Scene>
-        {/*<Scene>*/}
           <MetaObject
             animationState={animationState}
             callBack={changeCallback}
@@ -74,7 +77,7 @@ export default function Hero({contents}) {
         </Scene>
       </div>
       <div className='c-hero__content' data-animation={animationState}>
-        <div className="c-hero__index">{slideData.index}</div>
+        {scrollIsActive && <strong>SCROLL ATTIVO</strong>}
         <div className='c-hero__pretitle'>{slideData.pretitle}</div>
         <div className='c-hero__title'>{slideData.title}</div>
         <div className='c-hero__subtitle'>{slideData.subtitle}</div>

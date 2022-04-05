@@ -1,10 +1,22 @@
 import dynamic from 'next/dynamic'
 const Hero = dynamic(() => import('@/components/Hero/Index'))
 
+
 const Page = ({heroContents}) => {
+
+  /* just to test scroll */
+  const renderSpacer = ()=> {
+    const items = [];
+    for (var i = 0; i < 150; i++) {
+      items.push(<p key={i}>contenuto</p>)
+    }
+    return items;
+  }
+
   return (
     <>
-      <Hero contents={heroContents}></Hero>
+      <Hero contents={heroContents} />
+      {renderSpacer()}
     </>
   )
 }
