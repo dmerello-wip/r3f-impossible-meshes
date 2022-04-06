@@ -1,25 +1,38 @@
 import { useRef } from 'react'
-import { Canvas, useFrame } from '@react-three/fiber'
+import { Canvas, useFrame, doubleSide } from '@react-three/fiber'
 import {OrthographicCamera, OrbitControls, Preload, Plane, ContactShadows} from '@react-three/drei'
-import * as THREE from 'three';
+import MetaObject from "@/components/Hero/MetaObject";
 
-const Scene = ({ children}) => {
+const Scene = ({ children, animationState, callBack, modelType }) => {
   const cameraRef = useRef();
 
-  //TODO: create a plane, add light, rotate camera and metaObject accordingly to mantain the perspective effect
+  const cameraDistance = 80;
+  const cameraRotation = Math.PI/4;
+
   return (
         <Canvas mode='concurrent' shadowMap >
-          {/*<OrbitControls*/}
-          {/*  camera={cameraRef.current}*/}
-          {/*/>*/}
-          <OrthographicCamera castShadow
+          <OrbitControls
+            camera={cameraRef.current}
+          />
+          <OrthographicCamera
+            castShadow
             zoom={90}
-            position={[0,0,80]}
+            rotation={[cameraRotation,0,0]}
+            position={[0,cameraDistance * Math.tan(cameraRotation),cameraDistance]}
             makeDefault={true}
             ref={cameraRef}
           />
+          <MetaObject
+            animationState={animationState}
+            callBack={callBack}
+            modelType={modelType}
+            rotationX={cameraRotation}
+          />
+          <Plane receiveShadow args={[100,100]} position={[0,-4,-2]} rotation={[-Math.PI/2,0,0]}>
+            <meshBasicMaterial color="green"  />
+          </Plane>
+          <ContactShadows rotation-x={Math.PI / 2} position={[0, -3.9, 0]} opacity={1} width={50} height={50} blur={1} far={20} />
           <Preload all />
-            {children}
         </Canvas>
   )
 }

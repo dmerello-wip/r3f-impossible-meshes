@@ -1,4 +1,4 @@
-import React, {useEffect, useState, useRef} from 'react'
+import React, {useEffect, useState, useRef, useCallback} from 'react'
 import {useFrame} from "@react-three/fiber"
 import {MathUtils, Vector3} from 'three'
 import {Power2, Linear, gsap} from "gsap";
@@ -6,7 +6,7 @@ import DoubleTriangle from "@/components/Hero/DoubleTriangle";
 import Triangle from "@/components/Hero/Triangle";
 import Cube from "@/components/Hero/Cube";
 
-export default function MetaObject({children, animationState, callBack, modelType}) {
+export default function MetaObject({animationState, callBack, modelType, rotationX}) {
 
   const objectRef = useRef();
 
@@ -16,7 +16,6 @@ export default function MetaObject({children, animationState, callBack, modelTyp
 
   const [hovered, setHovered] = useState(false);
   const [opacity, setOpacity] = useState(0);
-  const [isDragging, setIsDragging] = useState(false);
 
   /* ---------------------------------------------------------------------*/
   /* ------------------------- CONFIG ------------------------------------*/
@@ -110,15 +109,19 @@ export default function MetaObject({children, animationState, callBack, modelTyp
     touchIsStarted.current = false;
     animationDragOut();
   };
+
+  const attachDragEvents = useCallback(()=>{
+    document.addEventListener('mouseup', onPointerUp);
+    document.addEventListener('touchend', onPointerUp);
+    document.addEventListener('mousemove', onPointerMove);
+    document.addEventListener('touchmove', onPointerMove);
+  });
   /* ---------------------------------------------------------------------*/
   /* ---------------------  EFFECTS --------------------------------------*/
   /* ---------------------------------------------------------------------*/
 
   useEffect(()=>{
-    document.addEventListener('mouseup', onPointerUp);
-    document.addEventListener('touchend', onPointerUp);
-    document.addEventListener('mousemove', onPointerMove);
-    document.addEventListener('touchmove', onPointerMove);
+    attachDragEvents();
   }, []);
 
   /* ---- Trig animation state -------------------------------------------*/
@@ -147,6 +150,7 @@ export default function MetaObject({children, animationState, callBack, modelTyp
              setHovered(false);
            }}
            onPointerDown={onPointerDown}
+           rotation-x={-rotationX}
     >
       {(modelType==='DoubleTriangle') && <DoubleTriangle emissivity={opacity}/>}
       {(modelType==='Triangle') && <Triangle emissivity={opacity}/>}

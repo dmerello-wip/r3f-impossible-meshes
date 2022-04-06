@@ -35,7 +35,8 @@ export default function Hero({contents}) {
   const scrollUp = ()=> {
     if (state.currentSlideIndex === 0) return;
     changeHandler(state.currentSlideIndex - 1);
-  }
+  };
+
   const scrollDown = ()=> {
     if (state.currentSlideIndex === (slidesData.length - 1)) {
       toggleScroll(true);
@@ -44,7 +45,7 @@ export default function Hero({contents}) {
     } else {
       changeHandler(state.currentSlideIndex + 1);
     }
-  }
+  };
 
   const changeCallback = () => {
     // heroRef.current.addEventListener('wheel', onWheel);
@@ -103,13 +104,10 @@ export default function Hero({contents}) {
   return (
     <div className='c-hero' ref={heroRef}>
       <div className='c-hero__canvas'>
-        <Scene>
-          <MetaObject
-            animationState={state.animationState}
-            callBack={changeCallback}
-            modelType={content.model}
-          >
-          </MetaObject>
+        <Scene
+          animationState={state.animationState}
+          callBack={changeCallback}
+          modelType={content.model}>
         </Scene>
       </div>
       <div className='c-hero__content' data-animation={state.animationState}>
