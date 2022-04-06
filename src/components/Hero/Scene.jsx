@@ -3,21 +3,21 @@ import { Canvas, useFrame, doubleSide } from '@react-three/fiber'
 import {OrthographicCamera, OrbitControls, Preload, Plane, ContactShadows} from '@react-three/drei'
 import MetaObject from "@/components/Hero/MetaObject";
 
-const Scene = ({ children, animationState, callBack, modelType }) => {
+const Scene = ({ animationState, callBack, modelType }) => {
   const cameraRef = useRef();
 
   const cameraDistance = 80;
-  const cameraRotation = Math.PI/4;
+  const cameraRotation = 0.08;
 
   return (
         <Canvas mode='concurrent' shadowMap >
-          <OrbitControls
-            camera={cameraRef.current}
-          />
+          {/*<OrbitControls*/}
+          {/*  camera={cameraRef.current}*/}
+          {/*/>*/}
           <OrthographicCamera
             castShadow
             zoom={90}
-            rotation={[cameraRotation,0,0]}
+            rotation={[-cameraRotation,0,0]}
             position={[0,cameraDistance * Math.tan(cameraRotation),cameraDistance]}
             makeDefault={true}
             ref={cameraRef}
@@ -28,10 +28,10 @@ const Scene = ({ children, animationState, callBack, modelType }) => {
             modelType={modelType}
             rotationX={cameraRotation}
           />
-          <Plane receiveShadow args={[100,100]} position={[0,-4,-2]} rotation={[-Math.PI/2,0,0]}>
-            <meshBasicMaterial color="green"  />
-          </Plane>
-          <ContactShadows rotation-x={Math.PI / 2} position={[0, -3.9, 0]} opacity={1} width={50} height={50} blur={1} far={20} />
+          {/*<Plane receiveShadow args={[100,100]} position={[0,-3,-2]} rotation={[-Math.PI/2,0,0]}>*/}
+          {/*  <meshBasicMaterial color="green"  />*/}
+          {/*</Plane>*/}
+          <ContactShadows rotation-x={Math.PI / 2} position={[0, -2.9, 0]} opacity={1} width={50} height={50} blur={1} far={20} />
           <Preload all />
         </Canvas>
   )
